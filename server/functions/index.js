@@ -12,6 +12,7 @@ app.use(express.json());
 
 // cross orgin
 const cors = require("cors");
+
 app.use(cors({ origin: true }));
 app.use((req, res, next) => {
   res.set("Access-Control-Allow-Origin", "*");
@@ -25,10 +26,12 @@ admin.initializeApp({
 
 // api endpoints
 app.get("/", (req, res) => {
-  return res.send("hello");
+  return res.send("0");
 });
 
 const userRoute = require("./routes/user");
 app.use("/api/users", userRoute);
+const productsRoute = require("./routes/products");
+app.use("/api/products", productsRoute);
 
 exports.app = functions.https.onRequest(app);

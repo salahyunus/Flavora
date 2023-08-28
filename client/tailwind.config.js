@@ -1,9 +1,15 @@
+// JSDoc comment helps tools identify the config type
 /** @type {import('tailwindcss').Config} */
+// module.exports exports js object as config settings
 module.exports = {
+  // type of files that tailwind should scan for css classes
+  // all js, jsx, ts (typescript), tsx files inside a src folder
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      // custom width utility classes
       width: {
+        // for example if i use w-150 in tailwind code it will fetch it from here instead of writing w-[150px]
         150: "150px",
         190: "190px",
         225: "225px",
@@ -30,6 +36,7 @@ module.exports = {
         650: "650px",
         685: "685px",
         800: "800px",
+        // h-90vh
         "90vh": "90vh",
       },
       minWidth: {
@@ -38,13 +45,20 @@ module.exports = {
         620: "620px",
       },
       screens: {
+        // media query breakpoints
+        // small screens means 640px
         sm: "640px",
+        // medium screens
         md: "768px",
+        // large
         lg: "1024px",
+        // xlarge
         xl: "1800px",
+        // double xlarge
         "2xl": "2024px",
       },
       colors: {
+        // custom colors (color classes)
         headingColor: "#2e2e2e",
         textColor: "#515151",
         primary: "#f3f3f3",

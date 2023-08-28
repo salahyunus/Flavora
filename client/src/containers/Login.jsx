@@ -14,6 +14,16 @@ import { buttonClick } from "../animations";
 import { app } from "../config/firebase.config";
 import { validateUserJWTToken } from "../api";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setUserDetails } from "../context/actions/userActions";
+import { useEffect } from "react";
+import {
+  alertDanger,
+  alertInfo,
+  alertNULL,
+  alertSuccess,
+  alertWarning,
+} from "../context/actions/alertActions";
 
 const Login = () => {
   const [userEmail, setuserEmail] = useState("");
@@ -23,6 +33,15 @@ const Login = () => {
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/", { replace: true });
+    }
+  }, [user, navigate]);
+
   function resetInput() {
     setuserEmail("");
     setConfirmPassword("");
@@ -35,6 +54,11 @@ const Login = () => {
           cred.getIdToken().then((token) => {
             validateUserJWTToken(token).then((data) => {
               resetInput();
+              dispatch(setUserDetails(data));
+              dispatch(alertSuccess("Welcome to Flavora Family!"));
+              setInterval(() => {
+                dispatch(alertNULL());
+              }, 3000);
             });
             navigate("/", { replace: true });
           });
@@ -44,43 +68,63 @@ const Login = () => {
   };
   const signInWithEmailPass = async () => {
     if (userEmail === "" || password === "") {
-      alert("Please fill in all fields.");
+      dispatch(alertInfo("Please fill in all fields"));
     } else if (!/\S+@\S+\.\S+/.test(userEmail) || /\s/.test(userEmail)) {
-      alert("Invalid email format.");
+      dispatch(alertDanger("Invalid email format"));
     } else {
-      signInWithEmailAndPassword(firebaseAuth, userEmail, password).then(
-        (userCred) => {
+      signInWithEmailAndPassword(firebaseAuth, userEmail, password)
+        .then((userCred) => {
           firebaseAuth.onAuthStateChanged((cred) => {
             if (cred) {
               cred.getIdToken().then((token) => {
-                validateUserJWTToken(token).then((data) => {
-                  resetInput();
-                });
+                validateUserJWTToken(token)
+                  .then((data) => {
+                    resetInput();
+                    dispatch(setUserDetails(data));
+                    dispatch(alertSuccess("Welcome Back to your Family!"));
+                  })
+                  .catch((error) => {
+                    // Handle validation errors here if needed
+                    console.error("Validation error:", error);
+                  });
                 navigate("/", { replace: true });
               });
             }
           });
-        }
-      );
+        })
+        .catch(function (error) {
+          var errorCode = error.code;
+          var errorMessage = error.message;
+
+          if (errorCode === "auth/user-not-found") {
+            dispatch(alertDanger("Account Not Found"));
+          } else if (errorCode === "auth/wrong-password") {
+            dispatch(alertDanger("incorrect password"));
+          } else {
+            dispatch(alertDanger(errorMessage));
+          }
+
+          console.log(error);
+        });
     }
   };
   const signUpWithEmailPass = async () => {
     if (userEmail === "" || password === "" || confirmPassword === "") {
-      alert("Please fill in all fields.");
+      dispatch(alertInfo("Please fill in all fields"));
     } else if (password !== confirmPassword) {
-      alert("Password and confirm password do not match.");
+      dispatch(alertWarning("Password doesn't match"));
     } else if (password.length < 5) {
-      alert("Password must be at least 5 characters long.");
+      dispatch(alertInfo("Password must be at least 5 characters"));
     } else if (!/\d/.test(password)) {
-      alert("Password must contain at least one digit.");
+      dispatch(alertInfo("Password must contain at least one digit"));
     } else if (!/[A-Z]/.test(password)) {
-      alert("Password must contain at least one uppercase letter.");
+      dispatch(alertInfo("Password must contain at least 1 uppercase letter"));
     } else if (!/[a-z]/.test(password)) {
-      alert("Password must contain at least one lowercase letter.");
+      dispatch(alertInfo("Password must contain at least 1 lowercase letter"));
     } else if (!/[^a-zA-Z\d]/.test(password)) {
-      alert("Password must contain at least one special symbol.");
+      dispatch(alertInfo("Password must contain at least 1 special symbol"));
     } else if (!/\S+@\S+\.\S+/.test(userEmail) || /\s/.test(userEmail)) {
-      alert("Invalid email format.");
+      dispatch(alertDanger("Invalid email format"));
     } else {
       await createUserWithEmailAndPassword(
         firebaseAuth,
@@ -92,6 +136,8 @@ const Login = () => {
             cred.getIdToken().then((token) => {
               validateUserJWTToken(token).then((data) => {
                 resetInput();
+                dispatch(setUserDetails(data));
+                dispatch(alertSuccess("Welcome to Flavora Family!"));
               });
               navigate("/", { replace: true });
             });
@@ -102,6 +148,7 @@ const Login = () => {
   };
 
   const [isSignUp, setIsSignUp] = useState(false);
+
   return (
     <div
       className="w-screen h-screen relative flex "
@@ -109,13 +156,13 @@ const Login = () => {
     >
       <img
         src={LoginBg}
-        alt="login background"
+        alt="login"
         className="w-full h-full object-cover absolute top-0 left-0"
       />
 
       <div className="flex flex-col items-center bg-lightOverlay w-[70%] md:w-[508px] h-full z-10 backdrop-blur-[14px] p-4 px-4 py-12">
         <div className="w-full flex items-center justify-center mb-4">
-          <img src={Logo} alt="logo image" className="w-[30%]" />
+          <img src={Logo} alt="logo" className="w-[30%]" />
         </div>
         <p className="font-semibold text-headingColor text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-2 -mt-1">
           Flavorful Bites!
