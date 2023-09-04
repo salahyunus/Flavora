@@ -1,17 +1,10 @@
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import Typed from "typed.js";
-import {
-  buttonClick,
-  fadeInOut,
-  staggerFadeInOut,
-  toTopAnim,
-} from "../animations";
+import { buttonClick, staggerFadeInOut, toTopAnim } from "../animations";
 import { Delivery, HeroBg } from "../assets";
 import { randomData } from "../utils/styles";
 import { BsArrowUp } from "react-icons/bs";
-import { Link as ScrollLink } from "react-scroll";
-import { Link } from "react-router-dom";
 const Home = () => {
   useEffect(() => {
     const typed = new Typed(".typed-text", {

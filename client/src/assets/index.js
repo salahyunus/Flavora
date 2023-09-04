@@ -5,3 +5,6 @@ export { default as Delivery } from "./images/delivery.png";
 export { default as HeroBg } from "./images/heroBg.png";
 export { default as Bill } from "./images/bill.jpg";
 export { default as cancelBill } from "./images/cancelBill.webp";
+export { default as burgers } from "./images/burgers.svg";
+export { default as booking } from "./images/booking.svg";
+export { default as jobs } from "./images/jobs.svg";

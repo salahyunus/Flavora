@@ -69,9 +69,22 @@ const ProfileCard = () => {
         {user?.name ? user?.name : "Email User"}
       </div>
       <div id="subtitle" className="text-md text-gray-500">
-        {user?.user_id === process.env.REACT_APP_ADMIN_ID
-          ? "Behind the Scenes || Flavora Admin"
-          : "Taste Explorer || Flavora Customer"}
+        {user?.user_id === process.env.REACT_APP_ADMIN_ID ? (
+          <p>
+            Behind the Scenes ||{" "}
+            <span className="text-emerald-500 font-semibold">
+              {" "}
+              Flavora Admin{" "}
+            </span>
+          </p>
+        ) : (
+          <p>
+            Taste Explorer ||{" "}
+            <span className="text-blue-500 font-semibold">
+              Flavora Customer
+            </span>
+          </p>
+        )}
       </div>
       <div id="stats" className="flex justify-between items-center my-6">
         <div className="stat-sub flex flex-col items-center mr-4">

@@ -5,6 +5,7 @@ import { Bill } from "../assets";
 import { Header } from "../Components";
 import { motion } from "framer-motion";
 import { buttonClick } from "../animations";
+import { FaArrowRight } from "react-icons/fa";
 
 const CheckoutSuccess = () => {
   return (
@@ -16,14 +17,22 @@ const CheckoutSuccess = () => {
         <h1 className="text-4xl sm:text-5xl text-headingColor font-bold">
           Amount paid Successfully
         </h1>
-
+        <motion.div {...buttonClick}>
+          <NavLink
+            to={"/quotes"}
+            className="flex items-center justify-center gap-2 sm:gap-4 cursor-pointer text-xl sm:text-2xl text-textColor font-semibold px-4 py-2 rounded-md border border-gray-300 hover:shadow-md"
+          >
+            Some Quotes
+            <FaArrowRight className="text-2xl sm:text-3xl text-textColor " />{" "}
+          </NavLink>
+        </motion.div>
         <motion.div {...buttonClick}>
           <NavLink
             to={"/"}
             className="flex items-center justify-center gap-2 sm:gap-4 cursor-pointer text-xl sm:text-2xl text-textColor font-semibold px-4 py-2 rounded-md border border-gray-300 hover:shadow-md"
           >
-            <FaArrowLeft className="text-2xl sm:text-3xl text-textColor " /> Get
-            back to Home
+            <FaArrowLeft className="text-2xl sm:text-3xl text-textColor " />
+            Back to Home
           </NavLink>
         </motion.div>
       </div>
