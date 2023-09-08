@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 const Booking = () => {
   return (
-    <section className="min-h-screen bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center bg-slate-600 w-full ">
+    <section className="min-h-screen bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center bg-gray-200 w-full ">
       <h2 className="text-orange-400 pt-40 pb-20 text-3xl md:text-4xl">
         BOOK YOUR TABLE NOW
       </h2>
@@ -12,7 +12,7 @@ const Booking = () => {
           <form className="flex flex-col">
             <div className="form-row">
               <select
-                className="block w-full p-2 border-b border-gray-300 outline-none"
+                className="block w-full p-2 border-b border-gray-300 outline-none cursor-pointer"
                 name="days"
               >
                 <option value="day-select">Select Day</option>
@@ -26,7 +26,7 @@ const Booking = () => {
               </select>
 
               <select
-                className="block w-full p-2 border-b border-gray-300 outline-none"
+                className="block w-full p-2 border-b border-gray-300 outline-none cursor-pointer"
                 name="hours"
               >
                 <option value="hour-select">Select Hour</option>

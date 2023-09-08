@@ -26,3 +26,4 @@ export { default as ProfileCard } from "./ProfileCard";
 export { default as MenuSection } from "./MenuSection";
 export { default as HadithCard } from "./HadithCard";
 export { default as ServiceCard } from "./ServiceCard";
+export { default as LoginPassInput } from "./LoginPassInput";

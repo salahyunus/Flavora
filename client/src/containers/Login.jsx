@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { LoginBg, Logo } from "../assets";
-import { LoginInput } from "../Components";
+import { LoginInput, LoginPassInput } from "../Components";
 import { FaEnvelope, FaLock, FcGoogle } from "../assets/icons";
 import {
   GoogleAuthProvider,
@@ -181,7 +181,7 @@ const Login = () => {
             type="email"
             isSignUp={isSignUp}
           />
-          <LoginInput
+          <LoginPassInput
             placeHolder="Choose a Password"
             icon={
               <FaLock className="lg:text-2xl md:text-xl text-lg text-textColor" />
@@ -192,7 +192,7 @@ const Login = () => {
             isSignUp={isSignUp}
           />
           {isSignUp && (
-            <LoginInput
+            <LoginPassInput
               placeHolder="Confirm Password"
               icon={
                 <FaLock className="lg:text-2xl md:text-xl text-lg text-textColor" />

@@ -4,6 +4,8 @@ import {
   // Mail Icon
   FaEnvelope,
   // Password Icon
+  FaEye,
+  FaEyeSlash,
   FaLock,
   // Upload Item Img Item
   FaCloudUploadAlt,
@@ -41,6 +43,7 @@ import { BiChevronsRight } from "react-icons/bi";
 export {
   FaEnvelope,
   FaApple,
+  FaEyeSlash,
   FaLock,
   FaFacebookF,
   FcGoogle,
@@ -58,4 +61,5 @@ export {
   BiChevronsRight,
   FcClearFilters,
   FaArrowLeft,
+  FaEye,
 };
